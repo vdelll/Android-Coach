@@ -5,6 +5,8 @@ import android.content.Context;
 import com.example.coach.modele.Profil;
 import com.example.coach.outils.Serializer;
 
+import java.util.Date;
+
 public final class Controle {
 
     // --- Propriétés ---
@@ -25,7 +27,7 @@ public final class Controle {
     public static final Controle getInstance(Context contexte) {
         if (instance == null) {
             Controle.instance = new Controle();
-            recupSerialize(contexte);
+            // recupSerialize(contexte);
         }
         return Controle.instance;
     }
@@ -39,8 +41,8 @@ public final class Controle {
      * @param sexe   1 pour homme, 0 pour femme
      */
     public void creerProfil(Integer poids, Integer taille, Integer age, Integer sexe, Context contexte) {
-        profil = new Profil(poids, taille, age, sexe);
-        Serializer.serialize(nomFic, profil, contexte);
+        profil = new Profil(poids, taille, age, sexe, new Date());
+        // Serializer.serialize(nomFic, profil, contexte);
     }
 
     /**
