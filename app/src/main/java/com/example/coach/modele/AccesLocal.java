@@ -3,7 +3,9 @@ package com.example.coach.modele;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
+import com.example.coach.outils.MesOutils;
 import com.example.coach.outils.MySQLiteOpenHelper;
 
 import java.util.Date;
@@ -54,7 +56,8 @@ public class AccesLocal {
         curseur.moveToLast(); // Positionnement sur la dernière ligne
 
         if(!curseur.isAfterLast()){
-            Date datemesure = new Date();
+            Date datemesure = MesOutils.convertStringToDate(curseur.getString(0));
+            Log.d("dateMesure=", "************ "+datemesure);
             Integer poids = curseur.getInt(1);
             Integer taille = curseur.getInt(2);
             Integer age = curseur.getInt(3);
