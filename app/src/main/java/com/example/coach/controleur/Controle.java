@@ -66,7 +66,7 @@ public final class Controle {
      * @return le poids
      */
     public Integer getPoids() {
-        if (profil.getPoids() == null) {
+        if (profil == null) {
             return null;
         } else {
             return profil.getPoids();
@@ -78,7 +78,7 @@ public final class Controle {
      * @return la taille
      */
     public Integer getTaille() {
-        if (profil.getTaille() == null) {
+        if (profil == null) {
             return null;
         } else {
             return profil.getTaille();
@@ -90,7 +90,7 @@ public final class Controle {
      * @return l'age
      */
     public Integer getAge() {
-        if (profil.getAge() == null) {
+        if (profil == null) {
             return null;
         } else {
             return profil.getAge();
@@ -102,7 +102,7 @@ public final class Controle {
      * @return le sexe
      */
     public Integer getSexe() {
-        if (profil.getSexe() == null) {
+        if (profil == null) {
             return null;
         } else {
             return profil.getSexe();
