@@ -56,6 +56,10 @@ public class Profil implements Serializable {
         return message;
     }
 
+    public Date getDateMesure(){
+        return dateMesure;
+    }
+
     // --- Méthodes ---
     /**
      * Valorise la propriété IMG en lui affectant le calcul
