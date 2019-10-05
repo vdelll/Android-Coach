@@ -87,10 +87,6 @@ public class MainActivity extends AppCompatActivity {
                 } else if (age == 0) {
                     Toast.makeText(MainActivity.this, "Veuillez saisir tous les champs", Toast.LENGTH_SHORT).show();
                 } else {
-                    Log.d("poids= ", "******************"+poids);
-                    Log.d("taille= ", "******************"+taille);
-                    Log.d("age= ", "******************"+age);
-                    Log.d("sexe= ", "******************"+sexe);
                     afficheResult(poids, taille, age, sexe);
                 }
             }
@@ -108,11 +104,8 @@ public class MainActivity extends AppCompatActivity {
      */
     private void afficheResult(Integer poids, Integer taille, Integer age, Integer sexe) {
         controle.creerProfil(poids, taille, age, sexe, this);
-        Log.d("control.getImg=", "**************" + controle.getImg());
         float img = controle.getImg();
-        Log.d("img =", "***************" + img);
         String message = controle.getMessage();
-        Log.d("Message afficheResult=", "**********************" + message);
 
         if (message.contentEquals("trop faible")) {
             imgSmiley.setImageResource(R.drawable.maigre);

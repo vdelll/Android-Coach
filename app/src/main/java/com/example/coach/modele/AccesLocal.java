@@ -48,7 +48,7 @@ public class AccesLocal {
 
         bd = accesBD.getReadableDatabase(); // Accès en lecture à la BDD
 
-        String req = "SELECT poids, taille, age, sexe, datemesure FROM profil"; // récupération des profils
+        String req = "SELECT datemesure, poids, taille, age, sexe FROM profil"; // récupération des profils
 
         Cursor curseur = bd.rawQuery(req, null); // Initialisation du curseur
         curseur.moveToLast(); // Positionnement sur la dernière ligne

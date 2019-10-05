@@ -31,6 +31,7 @@ public final class Controle {
         if (instance == null) {
             Controle.instance = new Controle();
             accesLocal = new AccesLocal(contexte);
+            profil = accesLocal.recupDernier();
             // recupSerialize(contexte);
         }
         return Controle.instance;
@@ -46,7 +47,7 @@ public final class Controle {
      */
     public void creerProfil(Integer poids, Integer taille, Integer age, Integer sexe, Context contexte) {
         profil = new Profil(poids, taille, age, sexe, new Date());
-        profil = accesLocal.recupDernier();
+        accesLocal.ajout(profil);
         // Serializer.serialize(nomFic, profil, contexte);
     }
 
@@ -65,7 +66,6 @@ public final class Controle {
      * @return
      */
     public String getMessage() {
-        Log.d("Message= ", "****************"+profil.getMessage());
         return profil.getMessage();
     }
 
