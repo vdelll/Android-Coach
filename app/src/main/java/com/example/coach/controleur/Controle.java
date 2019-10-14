@@ -3,9 +3,12 @@ package com.example.coach.controleur;
 import android.content.Context;
 import android.util.Log;
 
+import com.example.coach.modele.AccesDistant;
 import com.example.coach.modele.AccesLocal;
 import com.example.coach.modele.Profil;
 import com.example.coach.outils.Serializer;
+
+import org.json.JSONArray;
 
 import java.util.Date;
 
@@ -15,7 +18,8 @@ public final class Controle {
     private static Controle instance = null;
     private static Profil profil;
     private static String nomFic = "saveprofil";
-    private static AccesLocal accesLocal;
+    // private static AccesLocal accesLocal;
+    private static AccesDistant accesDistant;
 
     // --- Constructeur ---
     private Controle() {
@@ -30,14 +34,16 @@ public final class Controle {
     public static final Controle getInstance(Context contexte) {
         if (instance == null) {
             Controle.instance = new Controle();
-            accesLocal = new AccesLocal(contexte);
-            profil = accesLocal.recupDernier();
+            // accesLocal = new AccesLocal(contexte);
+            accesDistant = new AccesDistant();
+            // profil = accesLocal.recupDernier();
+            accesDistant.envoi("dernier", new JSONArray());
             // recupSerialize(contexte);
         }
         return Controle.instance;
     }
 
-    /**
+    /**70
      * Crée un profil
      *
      * @param poids
@@ -47,7 +53,8 @@ public final class Controle {
      */
     public void creerProfil(Integer poids, Integer taille, Integer age, Integer sexe, Context contexte) {
         profil = new Profil(poids, taille, age, sexe, new Date());
-        accesLocal.ajout(profil);
+        // accesLocal.ajout(profil);
+        accesDistant.envoi("enreg", profil.convertToJSONArray());
         // Serializer.serialize(nomFic, profil, contexte);
     }
 

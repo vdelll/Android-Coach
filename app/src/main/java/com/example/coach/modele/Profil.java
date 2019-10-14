@@ -1,7 +1,13 @@
 package com.example.coach.modele;
 
+import org.json.JSONArray;
+
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
+import com.example.coach.outils.MesOutils;
 
 public class Profil implements Serializable {
 
@@ -90,5 +96,17 @@ public class Profil implements Serializable {
                 message = "trop élevé";
             }
         }
+    }
+
+    public JSONArray convertToJSONArray(){
+        List uneListe = new ArrayList();
+        String sDateMesure = MesOutils.convertDateToString(dateMesure);
+        uneListe.add(sDateMesure);
+        uneListe.add(poids);
+        uneListe.add(taille);
+        uneListe.add(age);
+        uneListe.add(sexe);
+
+        return new JSONArray(uneListe);
     }
 }
