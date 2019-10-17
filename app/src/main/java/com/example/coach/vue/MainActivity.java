@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
 
         ecouteCalcul();
 
-        recupProfil();
+        // recupProfil();
     }
 
     /**
@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
      * @param sexe
      */
     private void afficheResult(Integer poids, Integer taille, Integer age, Integer sexe) {
-        controle.creerProfil(poids, taille, age, sexe, this);
+        controle.creerProfil(poids, taille, age, sexe);
         float img = controle.getImg();
         String message = controle.getMessage();
 
@@ -124,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Récupère le profil sérializé pour remettre les informations dans l'application
      */
-    private void recupProfil() {
+    public void recupProfil() {
         if (controle.getTaille() != null) {
             txtTaille.setText(controle.getTaille().toString());
         }

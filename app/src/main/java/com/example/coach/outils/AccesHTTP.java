@@ -9,6 +9,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import android.os.AsyncTask;
+import android.util.Log;
 
 /**
  * Classe technique de connexion distante HTTP
@@ -41,6 +42,7 @@ public class AccesHTTP extends AsyncTask<String, Integer, Long> {
 				// paramètres suivants (séparés par &)
 				parametres += "&" + URLEncoder.encode(nom, "UTF-8") + "=" + URLEncoder.encode(valeur, "UTF-8");
 			}
+			Log.d("addParam=", "**********************************************"+ parametres);
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}

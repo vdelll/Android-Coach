@@ -11,8 +11,8 @@ public abstract class MesOutils {
      * @param uneDate
      * @return
      */
-    public static Date convertStringToDate(String uneDate){
-        String expectedPattern = "EEE MMM dd hh:mm:ss 'GMT+00:00' yyyy";
+    public static Date convertStringToDate(String uneDate, String patern){
+        String expectedPattern = patern;
         SimpleDateFormat formatter = new SimpleDateFormat(expectedPattern);
         try {
             Date date = formatter.parse(uneDate);
@@ -32,4 +32,9 @@ public abstract class MesOutils {
         SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         return date.format(uneDate);
     }
+
+    public static Date convertStringToDate(String uneDate){
+        return MesOutils.convertStringToDate(uneDate, "EEE MMM dd hh:mm:ss 'GMT+00:00' yyyy");
+    }
+
 }

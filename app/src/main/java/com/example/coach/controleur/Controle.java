@@ -1,12 +1,9 @@
 package com.example.coach.controleur;
 
 import android.content.Context;
-import android.util.Log;
-
 import com.example.coach.modele.AccesDistant;
-import com.example.coach.modele.AccesLocal;
 import com.example.coach.modele.Profil;
-import com.example.coach.outils.Serializer;
+import com.example.coach.vue.MainActivity;
 
 import org.json.JSONArray;
 
@@ -20,6 +17,7 @@ public final class Controle {
     private static String nomFic = "saveprofil";
     // private static AccesLocal accesLocal;
     private static AccesDistant accesDistant;
+    private static Context contexte;
 
     // --- Constructeur ---
     private Controle() {
@@ -32,7 +30,8 @@ public final class Controle {
      * @return
      */
     public static final Controle getInstance(Context contexte) {
-        if (instance == null) {
+        if (Controle.instance == null && contexte != null) {
+            Controle.contexte = contexte;
             Controle.instance = new Controle();
             // accesLocal = new AccesLocal(contexte);
             accesDistant = new AccesDistant();
@@ -51,8 +50,8 @@ public final class Controle {
      * @param age
      * @param sexe   1 pour homme, 0 pour femme
      */
-    public void creerProfil(Integer poids, Integer taille, Integer age, Integer sexe, Context contexte) {
-        profil = new Profil(poids, taille, age, sexe, new Date());
+    public void creerProfil(Integer poids, Integer taille, Integer age, Integer sexe) {
+        profil = new Profil(new Date(), poids, taille, age, sexe);
         // accesLocal.ajout(profil);
         accesDistant.envoi("enreg", profil.convertToJSONArray());
         // Serializer.serialize(nomFic, profil, contexte);
@@ -124,12 +123,19 @@ public final class Controle {
         }
     }
 
+    public void setProfil(Profil profil){
+        Controle.profil = profil;
+        ((MainActivity)contexte).recupProfil();
+    }
+
     /**
      * Récupère les objets sérializés
      *
      * @param contexte
      */
+    /*
     private static void recupSerialize(Context contexte) {
         profil = (Profil) (Serializer.deSerialize(nomFic, contexte));
     }
+    */
 }

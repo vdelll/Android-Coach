@@ -1,5 +1,9 @@
 package com.example.coach.modele;
 
+import android.util.Log;
+
+import com.example.coach.outils.MesOutils;
+
 import org.json.JSONArray;
 
 import java.io.Serializable;
@@ -7,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.example.coach.outils.MesOutils;
+import static com.example.coach.outils.MesOutils.convertDateToString;
 
 public class Profil implements Serializable {
 
@@ -27,12 +31,12 @@ public class Profil implements Serializable {
     private Date dateMesure;
 
     // --- Constructeur ---
-    public Profil(Integer poids, Integer taille, Integer age, Integer sexe, Date dateMesure) {
+    public Profil(Date dateMesure, Integer poids, Integer taille, Integer age, Integer sexe) {
+        this.dateMesure = dateMesure;
         this.poids = poids;
         this.taille = taille;
         this.age = age;
         this.sexe = sexe;
-        this.dateMesure = dateMesure;
         calculIMG();
         resultIMG();
     }
@@ -98,15 +102,19 @@ public class Profil implements Serializable {
         }
     }
 
+    /**
+     * Conversion du profil au format JSON array
+     * @return
+     */
     public JSONArray convertToJSONArray(){
-        List uneListe = new ArrayList();
-        String sDateMesure = MesOutils.convertDateToString(dateMesure);
-        uneListe.add(sDateMesure);
-        uneListe.add(poids);
-        uneListe.add(taille);
-        uneListe.add(age);
-        uneListe.add(sexe);
+        List list = new ArrayList();
+        list.add(MesOutils.convertDateToString(dateMesure));
+        list.add(poids);
+        list.add(taille);
+        list.add(age);
+        list.add(sexe);
+        Log.d("laListe=", "*************************************"+ list.toString());
 
-        return new JSONArray(uneListe);
+        return new JSONArray(list);
     }
 }
