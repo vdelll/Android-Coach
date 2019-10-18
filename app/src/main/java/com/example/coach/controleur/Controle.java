@@ -148,6 +148,15 @@ public final class Controle {
         this.lesProfils = lesProfils;
     }
 
+    /**
+     * Permet la suppression d'un profil de la base de données
+     * @param profil
+     */
+    public void delProfil(Profil profil){
+        accesDistant.envoi("del", profil.convertToJSONArray());
+        lesProfils.remove(profil);
+    }
+
 /**
      * Récupère les objets sérializés
      *

@@ -5,10 +5,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.coach.R;
+import com.example.coach.controleur.Controle;
 import com.example.coach.modele.Profil;
 import com.example.coach.outils.MesOutils;
 
@@ -85,7 +88,7 @@ public class HistoListAdapter extends BaseAdapter {
      */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewProperties viewProperties;
+        final ViewProperties viewProperties;
 
         if (convertView == null){
             viewProperties = new ViewProperties();
@@ -102,6 +105,17 @@ public class HistoListAdapter extends BaseAdapter {
 
         viewProperties.txtListDate.setText(MesOutils.convertDateToString(lesProfils.get(position).getDateMesure()));
         viewProperties.txtListIMG.setText(MesOutils.format2Decimal(lesProfils.get(position).getImg()));
+
+        viewProperties.btnListSuppr.setTag(position);
+
+        viewProperties.btnListSuppr.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                int indice = (int)v.getTag();
+                Controle controle = Controle.getInstance(null);
+                controle.delProfil(lesProfils.get(indice));
+                notifyDataSetChanged();
+            }
+        });
 
         return convertView;
     }
