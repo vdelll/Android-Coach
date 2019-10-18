@@ -33,8 +33,22 @@ public abstract class MesOutils {
         return date.format(uneDate);
     }
 
+    /**
+     * Surcharge de methode string to date
+     * @param uneDate
+     * @return
+     */
     public static Date convertStringToDate(String uneDate){
         return MesOutils.convertStringToDate(uneDate, "EEE MMM dd hh:mm:ss 'GMT+00:00' yyyy");
+    }
+
+    /**
+     * Affichage d'un float à deux chiffres après la virgule
+     * @param nb
+     * @return
+     */
+    public static String format2Decimal(float nb){
+        return String.format("%.01f", nb);
     }
 
 }

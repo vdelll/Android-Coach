@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
      */
     private void creerMenu(){
         ecouteMenu((ImageButton)findViewById(R.id.btnMonImg), CalculActivity.class);
-        // ecouteMenu((ImageButton)findViewById(R.id.btnMonHistorique), CalculActivity.class);
+        ecouteMenu((ImageButton)findViewById(R.id.btnMonHistorique), HistoActivity.class);
     }
 
     /**

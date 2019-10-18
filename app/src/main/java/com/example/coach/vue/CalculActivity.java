@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.example.coach.R;
 import com.example.coach.controleur.Controle;
+import com.example.coach.outils.MesOutils;
 
 public class CalculActivity extends AppCompatActivity {
 
@@ -120,7 +121,7 @@ public class CalculActivity extends AppCompatActivity {
             lblIMG.setTextColor(Color.RED);
         }
 
-        lblIMG.setText(String.format("%.01f", img) + " : IMG " + message);
+        lblIMG.setText(MesOutils.format2Decimal(img) + " : IMG " + message);
     }
 
     /**
