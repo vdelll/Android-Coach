@@ -11,6 +11,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class AccesDistant implements AsyncResponse {
@@ -36,16 +37,24 @@ public class AccesDistant implements AsyncResponse {
         if(message.length > 1){
             if (message[0].equals("enreg")){
                 Log.d(message[0], " *************************** " + message[1]);
-            } else if (message[0].equals("dernier")) {
+            } else if (message[0].equals("tous")) {
                 Log.d(message[0], " *************************** " + message[1]);
                 try {
-                    JSONObject info = new JSONObject(message[1]);
-                    Date datemesure = MesOutils.convertStringToDate(info.getString("datemesure"), "yyyy-MM-dd hh:mm:ss");
-                    Integer poids = info.getInt("poids");
-                    Integer taille = info.getInt("taille");
-                    Integer age = info.getInt("age");
-                    Integer sexe = info.getInt("sexe");
-                    controle.setProfil(new Profil(datemesure, poids, taille, age, sexe));
+
+                    ArrayList<Profil> lesProfils = new ArrayList<>();
+
+                    JSONArray lesInfos = new JSONArray(message[1]);
+
+                    for (int k = 0; k < lesInfos.length(); k++){
+                        JSONObject info = new JSONObject(lesInfos.get(k).toString());
+                        Date datemesure = MesOutils.convertStringToDate(info.getString("datemesure"), "yyyy-MM-dd hh:mm:ss");
+                        Integer poids = info.getInt("poids");
+                        Integer taille = info.getInt("taille");
+                        Integer age = info.getInt("age");
+                        Integer sexe = info.getInt("sexe");
+                        lesProfils.add(new Profil(datemesure, poids, taille, age, sexe));
+                    }
+                    controle.setLesProfils(lesProfils);
 
                 } catch (JSONException e) {
                     e.printStackTrace();

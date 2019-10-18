@@ -8,13 +8,17 @@ import android.view.View;
 import android.widget.ImageButton;
 
 import com.example.coach.R;
+import com.example.coach.controleur.Controle;
 
 public class MainActivity extends AppCompatActivity {
+
+    private Controle controle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        this.controle = Controle.getInstance(MainActivity.this);
         creerMenu();
     }
 

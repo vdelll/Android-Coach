@@ -6,16 +6,36 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ListView;
 
 import com.example.coach.R;
+import com.example.coach.controleur.Controle;
+import com.example.coach.modele.Profil;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 public class HistoActivity extends AppCompatActivity {
+
+    Controle controle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_histo);
+        init();
+    }
+
+    /**
+     * Initialisation
+     */
+    private void init(){
         creerRetourHisto();
+
+        this.controle = Controle.getInstance(this);
+
+        creerListe();
     }
 
     /**
@@ -38,5 +58,20 @@ public class HistoActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    /**
+     * Crée la liste d'objets de type profil
+     */
+    private void creerListe(){
+        ArrayList<Profil> lesProfils;
+        lesProfils = controle.getLesProfils();
+        Collections.sort(lesProfils, Collections.<Profil>reverseOrder());
+
+        if (lesProfils != null){
+            ListView listView = (ListView)findViewById(R.id.lstHisto);
+            HistoListAdapter adapter = new HistoListAdapter(HistoActivity.this, lesProfils);
+            listView.setAdapter(adapter);
+        }
     }
 }

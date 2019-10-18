@@ -2,11 +2,13 @@ package com.example.coach.controleur;
 
 import android.content.Context;
 import com.example.coach.modele.AccesDistant;
+import com.example.coach.modele.AccesLocal;
 import com.example.coach.modele.Profil;
 import com.example.coach.vue.CalculActivity;
 
 import org.json.JSONArray;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public final class Controle {
@@ -15,9 +17,10 @@ public final class Controle {
     private static Controle instance = null;
     private static Profil profil;
     private static String nomFic = "saveprofil";
-    // private static AccesLocal accesLocal;
+    private static AccesLocal accesLocal;
     private static AccesDistant accesDistant;
     private static Context contexte;
+    private ArrayList<Profil> lesProfils = new ArrayList<>();
 
     // --- Constructeur ---
     private Controle() {
@@ -33,10 +36,10 @@ public final class Controle {
         if (Controle.instance == null && contexte != null) {
             Controle.contexte = contexte;
             Controle.instance = new Controle();
-            // accesLocal = new AccesLocal(contexte);
+            accesLocal = new AccesLocal(contexte);
             accesDistant = new AccesDistant();
             // profil = accesLocal.recupDernier();
-            accesDistant.envoi("dernier", new JSONArray());
+            accesDistant.envoi("tous", new JSONArray());
             // recupSerialize(contexte);
         }
         return Controle.instance;
@@ -52,7 +55,8 @@ public final class Controle {
      */
     public void creerProfil(Integer poids, Integer taille, Integer age, Integer sexe) {
         profil = new Profil(new Date(), poids, taille, age, sexe);
-        // accesLocal.ajout(profil);
+        accesLocal.ajout(profil);
+        lesProfils.add(profil);
         accesDistant.envoi("enreg", profil.convertToJSONArray());
         // Serializer.serialize(nomFic, profil, contexte);
     }
@@ -63,7 +67,11 @@ public final class Controle {
      * @return
      */
     public float getImg() {
-        return profil.getImg();
+        if (lesProfils.size() > 0) {
+            return lesProfils.get(lesProfils.size()-1).getImg();
+        } else {
+            return 0;
+        }
     }
 
     /**
@@ -72,7 +80,11 @@ public final class Controle {
      * @return
      */
     public String getMessage() {
-        return profil.getMessage();
+        if (lesProfils.size() > 0) {
+            return lesProfils.get(lesProfils.size()-1).getMessage();
+        } else {
+            return "";
+        }
     }
 
     /**
@@ -128,7 +140,15 @@ public final class Controle {
         ((CalculActivity)contexte).recupProfil();
     }
 
-    /**
+    public ArrayList<Profil> getLesProfils() {
+        return lesProfils;
+    }
+
+    public void setLesProfils(ArrayList<Profil> lesProfils) {
+        this.lesProfils = lesProfils;
+    }
+
+/**
      * Récupère les objets sérializés
      *
      * @param contexte
