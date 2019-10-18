@@ -24,6 +24,7 @@ public class HistoListAdapter extends BaseAdapter {
     // --- Propriétés ---
     ArrayList<Profil> lesProfils;
     LayoutInflater inflater;
+    Context contexte;
 
     /**
      * Constructeur
@@ -33,6 +34,7 @@ public class HistoListAdapter extends BaseAdapter {
     public HistoListAdapter(Context contexte, ArrayList<Profil> lesProfils){
         this.inflater = LayoutInflater.from(contexte);
         this.lesProfils = lesProfils;
+        this.contexte = contexte;
     }
 
     /**
@@ -114,6 +116,22 @@ public class HistoListAdapter extends BaseAdapter {
                 Controle controle = Controle.getInstance(null);
                 controle.delProfil(lesProfils.get(indice));
                 notifyDataSetChanged();
+            }
+        });
+
+        viewProperties.txtListDate.setTag(position);
+        viewProperties.txtListDate.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                int indice = (int)v.getTag();
+                ((HistoActivity)contexte).afficheProfil(lesProfils.get(indice));
+            }
+        });
+
+        viewProperties.txtListIMG.setTag(position);
+        viewProperties.txtListIMG.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                int indice = (int)v.getTag();
+                ((HistoActivity)contexte).afficheProfil(lesProfils.get(indice));
             }
         });
 

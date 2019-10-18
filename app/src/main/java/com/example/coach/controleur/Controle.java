@@ -54,10 +54,10 @@ public final class Controle {
      * @param sexe   1 pour homme, 0 pour femme
      */
     public void creerProfil(Integer poids, Integer taille, Integer age, Integer sexe) {
-        profil = new Profil(new Date(), poids, taille, age, sexe);
-        accesLocal.ajout(profil);
-        lesProfils.add(profil);
-        accesDistant.envoi("enreg", profil.convertToJSONArray());
+        Profil unProfil = new Profil(new Date(), poids, taille, age, sexe);
+        accesLocal.ajout(unProfil);
+        lesProfils.add(unProfil);
+        accesDistant.envoi("enreg", unProfil.convertToJSONArray());
         // Serializer.serialize(nomFic, profil, contexte);
     }
 
@@ -137,7 +137,7 @@ public final class Controle {
 
     public void setProfil(Profil profil){
         Controle.profil = profil;
-        ((CalculActivity)contexte).recupProfil();
+        // ((CalculActivity)contexte).recupProfil();
     }
 
     public ArrayList<Profil> getLesProfils() {

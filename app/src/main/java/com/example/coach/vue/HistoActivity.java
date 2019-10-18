@@ -74,4 +74,15 @@ public class HistoActivity extends AppCompatActivity {
             listView.setAdapter(adapter);
         }
     }
+
+    /**
+     * Affiche le profil sélectionné dans l'historique dans la table de calcul
+     * @param profil
+     */
+    public void afficheProfil(Profil profil){
+        controle.setProfil(profil);
+        Intent intent = new Intent(HistoActivity.this, CalculActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
 }

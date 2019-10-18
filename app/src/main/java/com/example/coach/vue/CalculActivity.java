@@ -55,8 +55,7 @@ public class CalculActivity extends AppCompatActivity {
 
         ecouteCalcul();
         creerRetour();
-
-        // recupProfil();
+        recupProfil();
     }
 
     /**
@@ -144,7 +143,8 @@ public class CalculActivity extends AppCompatActivity {
                 rdHomme.setChecked(true);
             }
         }
-        btnCalcul.performClick();
+        // btnCalcul.performClick();
+        controle.setProfil(null);
     }
 
     /**
